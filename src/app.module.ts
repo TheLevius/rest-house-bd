@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
+import { DbModule } from './db/db.module';
 import configuration from './config/configuration';
 
 @Module({
@@ -12,6 +13,7 @@ import configuration from './config/configuration';
       load: [configuration],
       cache: true,
     }),
+    DbModule,
   ],
   controllers: [AppController],
   providers: [AppService],

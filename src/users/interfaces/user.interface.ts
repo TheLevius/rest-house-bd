@@ -1,7 +1,3 @@
-export interface UserResponse {
-  id: string;
-  email: string;
-  login: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { User } from '@prisma/client';
+
+export type UserResponse = Omit<User, 'password' | 'createdAt' | 'updatedAt'>;

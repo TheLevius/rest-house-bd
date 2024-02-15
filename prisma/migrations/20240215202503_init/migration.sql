@@ -56,7 +56,7 @@ CREATE TABLE "Condition" (
 -- CreateTable
 CREATE TABLE "Role" (
     "id" SERIAL NOT NULL,
-    "role" VARCHAR(255) NOT NULL,
+    "title" VARCHAR(255) NOT NULL,
     "createdAt" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMPTZ(6) NOT NULL,
 
@@ -129,6 +129,9 @@ CREATE UNIQUE INDEX "BuildingType_type_key" ON "BuildingType"("type");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Condition_value_key" ON "Condition"("value");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Role_title_key" ON "Role"("title");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "separateHotelAndCottages" ON "Room"("number", "buildingTypeId");

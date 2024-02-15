@@ -7,28 +7,28 @@ import {
 import { createHash } from 'node:crypto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from 'src/db/prisma.service';
-import { UserResponse } from './interfaces/user.interface';
 import { UpdatePasswordDto } from './dto/updatePassword.dto';
-import { User } from '@prisma/client';
+import { User, UserRole } from '@prisma/client';
 import { UpdateLoginDto } from './dto/updateLogin.dto';
+import { UserResponse } from './interfaces/user.interface';
 
 const select = {
   id: true,
   email: true,
   login: true,
-  createdAt: true,
-  updatedAt: true,
 };
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  public findAll = async (): Promise<UserResponse[]> => {
-    const users = await this.prisma.user.findMany({
-      select,
+  public findAll = async (): Promise<
+    Array<UserResponse & { userRoles: UserRole[] }>
+  > => {
+    const result = await this.prisma.user.findMany({
+      select: { ...select, userRoles: true },
     });
-    return users;
+    return result;
   };
 
   public findOneById = async (id: string): Promise<UserResponse> => {
@@ -112,7 +112,7 @@ export class UsersService {
     }
   };
 
-  public delete = async (id: string): Promise<Omit<User, 'password'>> => {
+  public delete = async (id: string): Promise<UserResponse> => {
     try {
       const result = await this.prisma.user.delete({
         where: { id },

@@ -6,6 +6,7 @@ import { DbModule } from './db/db.module';
 import configuration from './config/configuration';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
+import { UserRolesModule } from './user-roles/user-roles.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { RolesModule } from './roles/roles.module';
     DbModule,
     UsersModule,
     RolesModule,
+    UserRolesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

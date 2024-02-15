@@ -8,7 +8,7 @@ import { PrismaService } from 'src/db/prisma.service';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { CreateRoleDto } from './dto/create-role.dto';
 
-const select = { id: true, role: true, createdAt: true, updatedAt: true };
+const select = { id: true, title: true, createdAt: true, updatedAt: true };
 
 @Injectable()
 export class RolesService {
@@ -31,35 +31,35 @@ export class RolesService {
     }
   }
 
-  public async findOneByRole(role: string): Promise<Role> {
+  public async findOneByRole(title: string): Promise<Role> {
     try {
       const result = await this.prisma.role.findFirstOrThrow({
         select,
-        where: { role },
+        where: { title },
       });
       return result;
     } catch (err) {
-      throw new NotFoundException(`Role ${role} not found`);
+      throw new NotFoundException(`Role ${title} not found`);
     }
   }
 
-  public async create({ role }: CreateRoleDto): Promise<Role> {
+  public async create({ title }: CreateRoleDto): Promise<Role> {
     try {
       const result = await this.prisma.role.create({
-        data: { role },
+        data: { title },
         select,
       });
       return result;
     } catch (err) {
-      throw new BadRequestException(`role ${role} is already exists!`);
+      throw new BadRequestException(`role ${title} is already exists!`);
     }
   }
 
-  public async update(id: number, { role }: UpdateRoleDto): Promise<Role> {
+  public async update(id: number, { title }: UpdateRoleDto): Promise<Role> {
     try {
       const result = await this.prisma.role.update({
         where: { id },
-        data: { role },
+        data: { title },
         select,
       });
       return result;

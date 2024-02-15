@@ -12,19 +12,21 @@ import { UpdatePasswordDto } from './dto/updatePassword.dto';
 import { User } from '@prisma/client';
 import { UpdateLoginDto } from './dto/updateLogin.dto';
 
+const select = {
+  id: true,
+  email: true,
+  login: true,
+  createdAt: true,
+  updatedAt: true,
+};
+
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
   public findAll = async (): Promise<UserResponse[]> => {
     const users = await this.prisma.user.findMany({
-      select: {
-        id: true,
-        email: true,
-        login: true,
-        createdAt: true,
-        updatedAt: true,
-      },
+      select,
     });
     return users;
   };
@@ -33,13 +35,7 @@ export class UsersService {
     try {
       const result = await this.prisma.user.findUniqueOrThrow({
         where: { id },
-        select: {
-          id: true,
-          email: true,
-          login: true,
-          createdAt: true,
-          updatedAt: true,
-        },
+        select,
       });
       return result;
     } catch (err) {
@@ -57,19 +53,14 @@ export class UsersService {
           email,
           password: this.hashPassword(password),
         },
-        select: {
-          id: true,
-          email: true,
-          login: true,
-          createdAt: true,
-          updatedAt: true,
-        },
+        select,
       });
       return result;
     } catch (err) {
       throw new BadRequestException('login already exists!');
     }
   };
+
   public updatePassword = async (
     id: string,
     dto: UpdatePasswordDto,
@@ -89,13 +80,7 @@ export class UsersService {
         data: {
           password: this.hashPassword(dto.newPassword),
         },
-        select: {
-          id: true,
-          email: true,
-          login: true,
-          createdAt: true,
-          updatedAt: true,
-        },
+        select,
       });
       return {
         status: 'success',
@@ -106,6 +91,7 @@ export class UsersService {
       throw new NotFoundException(`User with id: ${id} not found`);
     }
   };
+
   public patchLogin = async (
     id: string,
     dto: UpdateLoginDto,
@@ -114,13 +100,7 @@ export class UsersService {
       const result = await this.prisma.user.update({
         where: { id },
         data: { login: dto.login },
-        select: {
-          id: true,
-          email: true,
-          login: true,
-          createdAt: true,
-          updatedAt: true,
-        },
+        select,
       });
       return {
         status: 'success',
@@ -131,23 +111,19 @@ export class UsersService {
       throw new NotFoundException(`User with id: ${id} not found`);
     }
   };
-  public delete = async (id: string): Promise<UserResponse> => {
+
+  public delete = async (id: string): Promise<Omit<User, 'password'>> => {
     try {
       const result = await this.prisma.user.delete({
         where: { id },
-        select: {
-          id: true,
-          email: true,
-          login: true,
-          createdAt: true,
-          updatedAt: true,
-        },
+        select,
       });
       return result;
     } catch (err) {
       throw new NotFoundException(`User with id: ${id} not found`);
     }
   };
+
   public hashPassword = (password: string): string =>
     createHash('sha256').update(password).digest('hex');
 }

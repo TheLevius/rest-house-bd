@@ -57,7 +57,7 @@ model Condition {
 
 model Role {
   id        Int        @id @default(autoincrement())
-  role      String     @db.VarChar(255)
+  role      String     @unique @db.VarChar(255)
   createdAt DateTime   @default(now()) @db.Timestamptz(6)
   updatedAt DateTime   @updatedAt() @db.Timestamptz(6)
   userRoles UserRole[]

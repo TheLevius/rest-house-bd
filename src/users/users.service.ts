@@ -57,7 +57,7 @@ export class UsersService {
       });
       return result;
     } catch (err) {
-      throw new BadRequestException('login already exists!');
+      throw new BadRequestException('email is already exists!');
     }
   };
 

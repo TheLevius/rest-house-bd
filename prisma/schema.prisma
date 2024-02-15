@@ -47,14 +47,6 @@ model Comment {
   updatedAt  DateTime @updatedAt() @db.Timestamptz(6)
 }
 
-model Condition {
-  id        Int      @id
-  value     String   @unique @db.VarChar(255)
-  createdAt DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt DateTime @updatedAt() @db.Timestamptz(6)
-  rooms     Room[]
-}
-
 model Role {
   id        Int        @id @default(autoincrement())
   title     String     @unique @db.VarChar(255)
@@ -84,7 +76,6 @@ model Room {
   updatedAt           DateTime             @updatedAt() @db.Timestamptz(6)
   roomOccupiedPeriods RoomOccupiedPeriod[]
   buildingType        BuildingType         @relation(fields: [buildingTypeId], references: [id])
-  condition           Condition            @relation(fields: [conditionId], references: [id])
 
   @@unique([number, buildingTypeId], map: "separateHotelAndCottages")
 }

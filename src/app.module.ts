@@ -7,6 +7,7 @@ import configuration from './config/configuration';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 import { UserRolesModule } from './user-roles/user-roles.module';
+import { BuildingTypesModule } from './building-types/building-types.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UserRolesModule } from './user-roles/user-roles.module';
     UsersModule,
     RolesModule,
     UserRolesModule,
+    BuildingTypesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

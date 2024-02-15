@@ -7,116 +7,116 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model booking_requests {
-  id               BigInt         @id @default(autoincrement())
-  building_type_id Int            @db.SmallInt
-  user_id          String?        @db.Uuid
-  phone            String         @db.VarChar(255)
-  email            String         @db.VarChar(255)
-  check_in_date    DateTime       @db.Timestamptz(6)
-  check_out_date   DateTime       @db.Timestamptz(6)
-  adults_count     Int            @db.SmallInt
-  children_count   Int            @default(0) @db.SmallInt
-  children_ages    Int[]          @db.SmallInt
-  message          String?        @db.VarChar(4096)
-  created_at       DateTime       @default(now()) @db.Timestamptz(6)
-  updated_at       DateTime      	@updatedAt() @db.Timestamptz(6)
-  building_types   building_types @relation(fields: [building_type_id], references: [id])
-  users            users?         @relation(fields: [user_id], references: [id], onDelete: Restrict)
+model BookingRequest {
+  id             BigInt       @id @default(autoincrement())
+  buildingTypeId Int          @db.SmallInt
+  userId         String?      @db.Uuid
+  phone          String       @db.VarChar(255)
+  email          String       @db.VarChar(255)
+  checkInDate    DateTime     @db.Timestamptz(6)
+  checkOutDate   DateTime     @db.Timestamptz(6)
+  adultsCount    Int          @db.SmallInt
+  childrenCount  Int          @default(0) @db.SmallInt
+  childrenAges   Int[]        @db.SmallInt
+  message        String?      @db.VarChar(4096)
+  createdAt      DateTime     @default(now()) @db.Timestamptz(6)
+  updatedAt      DateTime     @updatedAt() @db.Timestamptz(6)
+  buildingTypes  BuildingType @relation(fields: [buildingTypeId], references: [id])
+  users          User?        @relation(fields: [userId], references: [id], onDelete: Restrict)
 }
 
-model building_types {
-  id               Int                @id @db.SmallInt
-  type             String             @unique @db.VarChar(255)
-  created_at       DateTime           @default(now()) @db.Timestamptz(6)
-  updated_at       DateTime      			@updatedAt() @db.Timestamptz(6)
-  booking_requests booking_requests[]
-  rooms            rooms[]
+model BuildingType {
+  id              Int              @id @db.SmallInt
+  type            String           @unique @db.VarChar(255)
+  createdAt       DateTime         @default(now()) @db.Timestamptz(6)
+  updatedAt       DateTime         @updatedAt() @db.Timestamptz(6)
+  bookingRequests BookingRequest[]
+  rooms           Room[]
 }
 
-model comments {
-  id          String    @id @db.Uuid
-  title       String    @db.VarChar(255)
-  content     String?   @db.VarChar(4095)
-  rate        Int       @db.SmallInt
-  stay_start  DateTime  @db.Timestamptz(6)
-  stay_end    DateTime  @db.Timestamptz(6)
-  guest_name  String    @db.VarChar(255)
-  avatar_link String?   @db.VarChar(255)
-  created_at  DateTime  @default(now()) @db.Timestamptz(6)
-  updated_at  DateTime  @updatedAt() @db.Timestamptz(6)
+model Comment {
+  id         String   @id @default(uuid()) @db.Uuid()
+  title      String   @db.VarChar(255)
+  content    String?  @db.VarChar(4095)
+  rate       Int      @db.SmallInt
+  stayStart  DateTime @db.Timestamptz(6)
+  stayEnd    DateTime @db.Timestamptz(6)
+  guestName  String   @db.VarChar(255)
+  avatarLink String?  @db.VarChar(255)
+  createdAt  DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt  DateTime @updatedAt() @db.Timestamptz(6)
 }
 
-model conditions {
-  id         Int       @id
-  value      String    @unique @db.VarChar(255)
-  created_at DateTime  @default(now()) @db.Timestamptz(6)
-  updated_at DateTime  @updatedAt() @db.Timestamptz(6)
-  rooms      rooms[]
+model Condition {
+  id        Int      @id
+  value     String   @unique @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt() @db.Timestamptz(6)
+  rooms     Room[]
 }
 
-model roles {
-  id         Int          @id @default(autoincrement())
-  role       String       @db.VarChar(255)
-  created_at DateTime     @default(now()) @db.Timestamptz(6)
-  updated_at DateTime     @updatedAt() @db.Timestamptz(6)
-  user_roles user_roles[]
+model Role {
+  id        Int        @id @default(autoincrement())
+  role      String     @db.VarChar(255)
+  createdAt DateTime   @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime   @updatedAt() @db.Timestamptz(6)
+  userRoles UserRole[]
 }
 
-model room_occupied_periods {
-  id             BigInt    @id @default(autoincrement())
-  room_id        String    @db.Uuid
-  check_in_date  DateTime  @db.Timestamptz(6)
-  check_out_date DateTime? @db.Timestamptz(6)
-  created_at     DateTime  @default(now()) @db.Timestamptz(6)
-  updated_at     DateTime  @updatedAt() @db.Timestamptz(6)
-  rooms          rooms     @relation(fields: [room_id], references: [id])
+model RoomOccupiedPeriod {
+  id           BigInt    @id @default(autoincrement())
+  roomId       String    @db.Uuid
+  checkInDate  DateTime  @db.Timestamptz(6)
+  checkOutDate DateTime? @db.Timestamptz(6)
+  createdAt    DateTime  @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime  @updatedAt() @db.Timestamptz(6)
+  rooms        Room      @relation(fields: [roomId], references: [id])
 }
 
-model rooms {
-  id                    String                  @id @db.Uuid
-  building_type_id      Int                     @db.SmallInt
-  number                Int
-  room_count            Int
-  availability          String                  @db.VarChar
-  condition_id          Int
-  created_at            DateTime                @default(now()) @db.Timestamptz(6)
-  updated_at            DateTime               	@updatedAt() @db.Timestamptz(6)
-  room_occupied_periods room_occupied_periods[]
-  building_types        building_types          @relation(fields: [building_type_id], references: [id])
-  conditions            conditions              @relation(fields: [condition_id], references: [id])
+model Room {
+  id                  String               @id @default(uuid()) @db.Uuid()
+  buildingTypeId      Int                  @db.SmallInt
+  number              Int
+  roomCount           Int
+  availability        String               @db.VarChar
+  conditionId         Int
+  createdAt           DateTime             @default(now()) @db.Timestamptz(6)
+  updatedAt           DateTime             @updatedAt() @db.Timestamptz(6)
+  roomOccupiedPeriods RoomOccupiedPeriod[]
+  buildingTypes       BuildingType         @relation(fields: [buildingTypeId], references: [id])
+  conditions          Condition            @relation(fields: [conditionId], references: [id])
 
-  @@unique([number, building_type_id], map: "separate_hotel_and_cottages")
+  @@unique([number, buildingTypeId], map: "separateHotelAndCottages")
 }
 
-model sessions {
-  id            String   @id @db.Uuid
-  user_id       String   @db.Uuid
-  session_token String   @db.VarChar(255)
-  expires       DateTime @db.Timestamptz(6)
-  created_at    DateTime @default(now()) @db.Timestamptz(6)
-  updated_at    DateTime @updatedAt() @db.Timestamptz(6)
-  users         users    @relation(fields: [user_id], references: [id])
+model Session {
+  id           String   @id @default(uuid()) @db.Uuid()
+  userId       String   @db.Uuid
+  sessionToken String   @db.VarChar(255)
+  expires      DateTime @db.Timestamptz(6)
+  createdAt    DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt    DateTime @updatedAt() @db.Timestamptz(6)
+  users        User     @relation(fields: [userId], references: [id])
 }
 
-model user_roles {
-  id         String    @id @db.Uuid
-  user_id    String    @db.Uuid
-  role_id    Int       @default(autoincrement())
-  created_at DateTime  @default(now()) @db.Timestamptz(6)
-  updated_at DateTime  @updatedAt @db.Timestamptz(6)
-  roles      roles     @relation(fields: [role_id], references: [id])
-  users      users     @relation(fields: [user_id], references: [id])
+model UserRole {
+  id        String   @id @default(uuid()) @db.Uuid()
+  userId    String   @db.Uuid
+  roleId    Int      @default(autoincrement())
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt @db.Timestamptz(6)
+  roles     Role     @relation(fields: [roleId], references: [id])
+  users     User     @relation(fields: [userId], references: [id])
 }
 
-model users {
-  id               String             @id @db.Uuid
-  email            String             @unique @db.VarChar(255)
-  password         String             @db.VarChar(255)
-  created_at       DateTime           @default(now()) @db.Timestamptz(6)
-  updated_at       DateTime          	@updatedAt() @db.Timestamptz(6)
-  login            String?            @db.VarChar(255)
-  booking_requests booking_requests[]
-  sessions         sessions[]
-  user_roles       user_roles[]
+model User {
+  id              String           @id @default(uuid()) @db.Uuid()
+  email           String           @unique @db.VarChar(255)
+  password        String           @db.VarChar(255)
+  createdAt       DateTime         @default(now()) @db.Timestamptz(6)
+  updatedAt       DateTime         @updatedAt() @db.Timestamptz(6)
+  login           String?          @db.VarChar(255)
+  bookingRequests BookingRequest[]
+  sessions        Session[]
+  userRoles       UserRole[]
 }

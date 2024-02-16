@@ -71,7 +71,6 @@ model Room {
   number              Int
   roomCount           Int
   availability        String               @db.VarChar
-  conditionId         Int
   createdAt           DateTime             @default(now()) @db.Timestamptz(6)
   updatedAt           DateTime             @updatedAt() @db.Timestamptz(6)
   roomOccupiedPeriods RoomOccupiedPeriod[]

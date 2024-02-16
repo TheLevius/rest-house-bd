@@ -12,13 +12,23 @@ import {
   Post,
   Put,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
 
 @Controller('rooms')
 export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}
   @Get()
-  public getAll(@Query() params: QueryParamsRoomDto) {
+  public getAll(
+    @Query(
+      new ValidationPipe({
+        transform: true,
+        transformOptions: { enableImplicitConversion: true },
+        forbidNonWhitelisted: true,
+      }),
+    )
+    params: QueryParamsRoomDto,
+  ) {
     if (params) {
       return this.roomsService.findAllByQueryParams(params);
     } else {

@@ -9,23 +9,23 @@ import {
 const maxSMI = 32767; //smi (1 << 15) -1; 16bit int
 
 export class QueryParamsRoomDto {
-  @Max(maxSMI)
-  @IsPositive()
-  @IsInt()
   @IsOptional()
+  @IsInt()
+  @IsPositive()
+  @Max(maxSMI)
   buildingtypeid: number;
-  @Max(maxSMI)
-  @IsPositive()
-  @IsInt()
   @IsOptional()
+  @IsInt()
+  @IsPositive()
+  @Max(maxSMI)
   number: number;
-  @Max(maxSMI)
-  @IsPositive()
+  @IsOptional()
   @IsInt()
-  @IsOptional()
+  @IsPositive()
+  @Max(maxSMI)
   roomcount: number;
-  @Length(1, 127)
-  @IsString()
   @IsOptional()
+  @IsString()
+  @Length(1, 127)
   availability: string;
 }

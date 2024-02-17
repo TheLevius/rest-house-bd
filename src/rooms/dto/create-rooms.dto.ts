@@ -1,15 +1,15 @@
 import { IsInt, IsPositive, IsString, Length, Max } from 'class-validator';
-const maxSMI = 32767; //smi
+const maxInt = 2147483647; // max integer value
 export class CreateRoomDto {
-  @Max(maxSMI)
+  @Max(maxInt)
   @IsPositive()
   @IsInt()
   buildingTypeId: number;
-  @Max(maxSMI)
+  @Max(maxInt)
   @IsPositive()
   @IsInt()
   number: number;
-  @Max(maxSMI)
+  @Max(maxInt)
   @IsPositive()
   @IsInt()
   roomCount: number;

@@ -27,10 +27,10 @@ export class RoomsController {
         forbidNonWhitelisted: true,
       }),
     )
-    params: QueryParamsRoomDto,
+    queryParams: QueryParamsRoomDto,
   ) {
-    if (params) {
-      return this.roomsService.findAllByQueryParams(params);
+    if (Object.keys(queryParams).length > 0) {
+      return this.roomsService.findAllByQueryParams(queryParams);
     } else {
       return this.roomsService.findAll();
     }

@@ -9,6 +9,7 @@ import { RolesModule } from './roles/roles.module';
 import { UserRolesModule } from './user-roles/user-roles.module';
 import { BuildingTypesModule } from './building-types/building-types.module';
 import { RoomsModule } from './rooms/rooms.module';
+import { RoomOccupiedPeriodsModule } from './room-occupied-periods/room-occupied-periods.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { RoomsModule } from './rooms/rooms.module';
     UserRolesModule,
     BuildingTypesModule,
     RoomsModule,
+    RoomOccupiedPeriodsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

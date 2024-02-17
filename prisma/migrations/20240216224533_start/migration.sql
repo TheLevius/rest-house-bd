@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE "BookingRequest" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "buildingTypeId" SMALLINT NOT NULL,
     "userId" UUID,
     "phone" VARCHAR(255) NOT NULL,
@@ -44,16 +44,6 @@ CREATE TABLE "Comment" (
 );
 
 -- CreateTable
-CREATE TABLE "Condition" (
-    "id" INTEGER NOT NULL,
-    "value" VARCHAR(255) NOT NULL,
-    "createdAt" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMPTZ(6) NOT NULL,
-
-    CONSTRAINT "Condition_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Role" (
     "id" SERIAL NOT NULL,
     "title" VARCHAR(255) NOT NULL,
@@ -65,7 +55,7 @@ CREATE TABLE "Role" (
 
 -- CreateTable
 CREATE TABLE "RoomOccupiedPeriod" (
-    "id" BIGSERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "roomId" UUID NOT NULL,
     "checkInDate" TIMESTAMPTZ(6) NOT NULL,
     "checkOutDate" TIMESTAMPTZ(6),
@@ -82,7 +72,6 @@ CREATE TABLE "Room" (
     "number" INTEGER NOT NULL,
     "roomCount" INTEGER NOT NULL,
     "availability" VARCHAR NOT NULL,
-    "conditionId" INTEGER NOT NULL,
     "createdAt" TIMESTAMPTZ(6) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMPTZ(6) NOT NULL,
 
@@ -128,9 +117,6 @@ CREATE TABLE "User" (
 CREATE UNIQUE INDEX "BuildingType_type_key" ON "BuildingType"("type");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Condition_value_key" ON "Condition"("value");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Role_title_key" ON "Role"("title");
 
 -- CreateIndex
@@ -150,9 +136,6 @@ ALTER TABLE "RoomOccupiedPeriod" ADD CONSTRAINT "RoomOccupiedPeriod_roomId_fkey"
 
 -- AddForeignKey
 ALTER TABLE "Room" ADD CONSTRAINT "Room_buildingTypeId_fkey" FOREIGN KEY ("buildingTypeId") REFERENCES "BuildingType"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Room" ADD CONSTRAINT "Room_conditionId_fkey" FOREIGN KEY ("conditionId") REFERENCES "Condition"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

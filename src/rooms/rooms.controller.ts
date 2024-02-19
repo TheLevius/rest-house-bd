@@ -1,3 +1,4 @@
+import { ApiTags } from '@nestjs/swagger';
 import { CreateRoomDto } from './dto/create-rooms.dto';
 import { QueryParamsRoomDto } from './dto/query-params-rooms.dto';
 import { UpdateRoomDto } from './dto/update-rooms.dto';
@@ -15,6 +16,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 
+@ApiTags('Rooms')
 @Controller('rooms')
 export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}

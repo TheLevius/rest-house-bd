@@ -1,4 +1,5 @@
 import { BuildingType, Prisma, Room, RoomOccupiedPeriod } from '@prisma/client';
+import { ServiceDates } from 'src/interfaces/service-dates.interface';
 
 export type RoomOccupiedPeriodResponse = Omit<
   RoomOccupiedPeriod,
@@ -8,7 +9,6 @@ export type RoomOccupiedPeriodResponse = Omit<
     buildingType: Omit<BuildingType, ServiceDates>;
   };
 };
-export type ServiceDates = 'createdAt' | 'updatedAt';
 
 export type QueryParamsRaw = {
   roomid?: string;

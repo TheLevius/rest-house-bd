@@ -1,4 +1,4 @@
-import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
+import { PipeTransform, Injectable } from '@nestjs/common';
 import {
   QueryParamsDto,
   QueryParamsRaw,
@@ -8,10 +8,7 @@ import {
 export class QueryParamsTransformPipe
   implements PipeTransform<QueryParamsRaw, QueryParamsDto | null>
 {
-  transform(
-    value: QueryParamsRaw,
-    metadata: ArgumentMetadata,
-  ): QueryParamsDto | Record<string, never> {
+  transform(value: QueryParamsRaw): QueryParamsDto | Record<string, never> {
     if (Object.keys(value).length === 0) {
       return {};
     }

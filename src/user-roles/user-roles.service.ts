@@ -6,47 +6,63 @@ import {
 import { PrismaService } from 'src/db/prisma.service';
 import {
   UserRoleExtResponse,
-  UserRoleResponse,
+  WithRoleResponse,
+  WithUserResponse,
 } from './interfaces/user-roles.interface';
 import { CreateUserRoleDto } from './dto/create-user-role.dto';
 
+const userSel = {
+  id: true,
+  email: true,
+  login: true,
+};
+const roleSel = {
+  id: true,
+  title: true,
+};
+
 const select = {
-  userId: true,
-  roleId: true,
+  id: true,
   user: {
-    select: {
-      email: true,
-      login: true,
-    },
+    select: userSel,
   },
   role: {
-    select: {
-      title: true,
-    },
+    select: roleSel,
+  },
+};
+const selectRole = {
+  role: {
+    select: roleSel,
+  },
+};
+
+const selectUser = {
+  user: {
+    select: userSel,
   },
 };
 
 @Injectable()
 export class UserRolesService {
   constructor(private readonly prisma: PrismaService) {}
-  public async findAll(): Promise<UserRoleResponse[]> {
+  public async findAll(): Promise<UserRoleExtResponse[]> {
     const result = await this.prisma.userRole.findMany({
       select,
     });
     return result;
   }
-  public async findAllByUserId(id: string): Promise<UserRoleResponse[]> {
+  public async findAllByUserId(id: string): Promise<WithRoleResponse[]> {
     try {
       const result = await this.prisma.userRole.findMany({
         where: { userId: id },
-        select,
+        select: selectRole,
       });
       return result;
     } catch (err) {
       throw new NotFoundException(`User Role with id: ${id} not found`);
     }
   }
-  public async findAllByRole(title: string): Promise<UserRoleExtResponse[]> {
+  public async findAllByRole(title: string): Promise<WithUserResponse[]> {
     try {
       const result = await this.prisma.userRole.findMany({
         where: {
@@ -54,17 +70,18 @@ export class UserRolesService {
             title,
           },
         },
-        select,
+        select: selectUser,
       });
       return result;
     } catch (err) {
       throw new NotFoundException(`User Role with title: ${title} not found`);
     }
   }
-  public async findRelationById(id: string): Promise<UserRoleResponse> {
+  public async findRelationById(id: string): Promise<UserRoleExtResponse> {
     try {
       const result = await this.prisma.userRole.findUniqueOrThrow({
         where: { id },
+        select,
       });
       return result;
     } catch (err) {

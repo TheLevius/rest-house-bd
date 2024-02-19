@@ -14,11 +14,12 @@ import {
 import { RoomOccupiedPeriodsService } from './room-occupied-periods.service';
 import {
   CreateRoomOccupiedPeriodDto,
-  QueryParamsRoomOccupiedPeriodDto,
   UpdateRoomOccupiedPeriodDto,
 } from './dto/room-occupied-period.dto';
 import { QueryParamsTransformPipe } from './validations/query-params.pipe';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Room Occupied Periods')
 @Controller('room-occupied-periods')
 export class RoomOccupiedPeriodsController {
   constructor(

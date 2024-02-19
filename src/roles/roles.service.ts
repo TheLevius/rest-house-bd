@@ -3,27 +3,29 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Role } from '@prisma/client';
 import { PrismaService } from 'src/db/prisma.service';
-import { UpdateRoleDto } from './dto/update-role.dto';
-import { CreateRoleDto } from './dto/create-role.dto';
+import { RoleDto } from './dto/role.dto';
+import { RoleResponse } from './interfaces/role.interface';
 
-const select = { id: true, title: true, createdAt: true, updatedAt: true };
+const select = { id: true, title: true };
 
 @Injectable()
 export class RolesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  public async findAll(): Promise<Role[]> {
-    const result = await this.prisma.role.findMany();
+  public async findAll(title?: string): Promise<RoleResponse[]> {
+    const result = await this.prisma.role.findMany({
+      where: { title },
+      select,
+    });
     return result;
   }
 
-  public async findOneById(id: number): Promise<Role> {
+  public async findOneById(id: number): Promise<RoleResponse> {
     try {
       const result = await this.prisma.role.findUniqueOrThrow({
-        select,
         where: { id },
+        select,
       });
       return result;
     } catch (err) {
@@ -31,11 +33,11 @@ export class RolesService {
     }
   }
 
-  public async findOneByRole(title: string): Promise<Role> {
+  public async findOneByRole(title: string): Promise<RoleResponse> {
     try {
       const result = await this.prisma.role.findFirstOrThrow({
-        select,
         where: { title },
+        select,
       });
       return result;
     } catch (err) {
@@ -43,7 +45,7 @@ export class RolesService {
     }
   }
 
-  public async create({ title }: CreateRoleDto): Promise<Role> {
+  public async create({ title }: RoleDto): Promise<RoleResponse> {
     try {
       const result = await this.prisma.role.create({
         data: { title },
@@ -55,7 +57,7 @@ export class RolesService {
     }
   }
 
-  public async update(id: number, { title }: UpdateRoleDto): Promise<Role> {
+  public async update(id: number, { title }: RoleDto): Promise<RoleResponse> {
     try {
       const result = await this.prisma.role.update({
         where: { id },
@@ -68,7 +70,7 @@ export class RolesService {
     }
   }
 
-  public async delete(id: number): Promise<Role> {
+  public async delete(id: number): Promise<RoleResponse> {
     try {
       const result = await this.prisma.role.delete({
         where: { id },

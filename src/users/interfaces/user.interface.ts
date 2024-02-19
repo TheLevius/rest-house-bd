@@ -1,11 +1,12 @@
 import { Role, User } from '@prisma/client';
+import { ServiceDates } from 'src/interfaces/service-dates.interface';
 import { UserRoleResponse } from 'src/user-roles/interfaces/user-roles.interface';
 
-export type UserResponse = Omit<User, 'password' | 'createdAt' | 'updatedAt'>;
-export type UserExtWithRolesResponse = UserResponse & {
+export type UserResponse = Omit<User, ServiceDates | 'password'>;
+export type UserWithRolesResponse = UserResponse & {
   userRoles: Array<
-    UserRoleResponse & {
-      role: Pick<Role, 'title'>;
+    Pick<UserRoleResponse, 'id'> & {
+      role: Omit<Role, ServiceDates>;
     }
   >;
 };

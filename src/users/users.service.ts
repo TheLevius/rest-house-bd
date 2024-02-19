@@ -7,12 +7,12 @@ import {
 import { createHash } from 'node:crypto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { PrismaService } from 'src/db/prisma.service';
-import { UpdatePasswordDto } from './dto/updatePassword.dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 import { User } from '@prisma/client';
-import { UpdateLoginDto } from './dto/updateLogin.dto';
+import { UpdateLoginDto } from './dto/update-login.dto';
 import {
-  UserExtWithRolesResponse,
   UserResponse,
+  UserWithRolesResponse,
 } from './interfaces/user.interface';
 
 const select = {
@@ -26,10 +26,10 @@ const selectExt = {
   login: true,
   userRoles: {
     select: {
-      roleId: true,
-      userId: true,
+      id: true,
       role: {
         select: {
+          id: true,
           title: true,
         },
       },
@@ -41,7 +41,7 @@ const selectExt = {
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
 
-  public findAll = async (): Promise<Array<UserExtWithRolesResponse>> => {
+  public findAll = async (): Promise<Array<UserWithRolesResponse>> => {
     const result = await this.prisma.user.findMany({
       select: selectExt,
     });

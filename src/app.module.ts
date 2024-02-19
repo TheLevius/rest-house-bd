@@ -14,7 +14,7 @@ import { RoomOccupiedPeriodsModule } from './room-occupied-periods/room-occupied
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env', '.env.development'],
+      envFilePath: process.env.NODE_ENV === 'production' ? '.env' : '.env.dev',
       isGlobal: true,
       load: [configuration],
       cache: true,

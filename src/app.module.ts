@@ -10,6 +10,7 @@ import { UserRolesModule } from './user-roles/user-roles.module';
 import { BuildingTypesModule } from './building-types/building-types.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { RoomOccupiedPeriodsModule } from './room-occupied-periods/room-occupied-periods.module';
+import { BookingRequestsModule } from './booking-requests/booking-requests.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { RoomOccupiedPeriodsModule } from './room-occupied-periods/room-occupied
     BuildingTypesModule,
     RoomsModule,
     RoomOccupiedPeriodsModule,
+    BookingRequestsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

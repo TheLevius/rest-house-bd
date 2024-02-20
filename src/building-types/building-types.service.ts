@@ -6,7 +6,7 @@ import {
 import { PrismaService } from 'src/db/prisma.service';
 import { CreateBuildingTypeDto } from './dto/create-building-type.dto';
 import { UpdateBuildingTypeDto } from './dto/update-building-type.dto';
-import { BuildingTypeResponse } from './interfaces/building-types';
+import { BuildingTypeResponse } from './interfaces/building-types.interface';
 
 const select = {
   id: true,

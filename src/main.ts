@@ -14,7 +14,7 @@ async function bootstrap() {
     .setTitle('Rest-house API')
     .setDescription('The rest-house description')
     .setVersion('1.0')
-    .addTag('rest-house')
+    .addTag('Rest-House Admin')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

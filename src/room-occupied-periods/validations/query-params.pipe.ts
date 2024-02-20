@@ -6,16 +6,24 @@ import {
 
 @Injectable()
 export class QueryParamsTransformPipe
-  implements PipeTransform<QueryParamsRaw, QueryParamsDto | null>
+  implements PipeTransform<QueryParamsRaw, QueryParamsDto>
 {
-  transform(value: QueryParamsRaw): QueryParamsDto | Record<string, never> {
-    if (Object.keys(value).length === 0) {
-      return {};
-    }
-    return {
-      roomId: value?.roomid ?? value.roomid,
-      checkInDate: value?.checkindate ?? value.checkindate,
-      checkOutDate: value?.checkoutdate ?? value.checkoutdate,
-    };
+  private readonly queryKeys: Array<keyof QueryParamsDto> = [
+    'roomId',
+    'checkInDate',
+    'checkOutDate',
+  ];
+  transform(value: QueryParamsRaw): QueryParamsDto {
+    return this.queryParser(value);
+  }
+  private queryParser(queryParamsRaw: QueryParamsRaw): QueryParamsDto {
+    const queryParamsDto = {};
+    this.queryKeys.forEach((queryKey) => {
+      const queryRawKey = queryKey.toLowerCase();
+      if (queryParamsRaw?.[queryRawKey]) {
+        queryParamsDto[queryKey] = queryParamsRaw[queryRawKey];
+      }
+    });
+    return queryParamsDto;
   }
 }

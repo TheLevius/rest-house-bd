@@ -1,0 +1,1420 @@
+{
+	"info": {
+		"_postman_id": "e8341043-15f5-47d3-8a19-770a802f880e",
+		"name": "rest-house-bd",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17247250"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const { id } = pm.response.json()",
+									"pm.collectionVariables.set('id', id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('password', JSON.parse(pm.request.body.toString()).password)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"new@new.new\",\n    \"password\": \"something\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{users}}/",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{users}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.admin\",\n    \"password\": \"something\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{users}}/",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{users}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.admin\",\n    \"password\": \"something\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{users}}/{{id}}/",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{users}}",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"oldPassword\": \"{{password}}\",\n    \"newPassword\": \"{{preNewPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{users}}/{{id}}/",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{users}}",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\": \"{{login}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{users}}/{{id}}/",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{users}}",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('id', '');"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{users}}/{{id}}/",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{users}}",
+								"{{id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Get All Roles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{roles}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{roles}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Role by Query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{roles}}?role=admin",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{roles}}"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "admin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Role By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{roles}}/{{role-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{roles}}",
+								"{{role-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Role",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const { id } = pm.response.json()",
+									"pm.collectionVariables.set('role-id', id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{roles}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{roles}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Role",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role\": \"owner\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{roles}}/{{role-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{roles}}",
+								"{{role-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{roles}}/{{role-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{roles}}",
+								"{{role-id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User-Roles",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{user-roles}}?role=admin",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{user-roles}}"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "admin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{id}}\",\n    \"roleId\": {{role-id}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{user-roles}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{user-roles}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Building-Types",
+			"item": [
+				{
+					"name": "Get All Building Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{building-types}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{building-types}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Building Type By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{building-types}}/{{building-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{building-types}}",
+								"{{building-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Building Type By Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{building-types}}?type=hote",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{building-types}}"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "hote"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Building Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const { id, type } = pm.response.json()",
+									"pm.collectionVariables.set('building-id', id);",
+									"pm.collectionVariables.set('building-type', type);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"type\": \"hotel\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{building-types}}/",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{building-types}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Building Type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const { id, type } = pm.response.json()",
+									"pm.collectionVariables.set('building-id', id);",
+									"pm.collectionVariables.set('building-type', type);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": {{building-id}},\n    \"type\": \"hotel\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{building-types}}/{{building-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{building-types}}",
+								"{{building-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Building Type Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{building-types}}/{{building-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{building-types}}",
+								"{{building-id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rooms",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{rooms}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{rooms}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Room By Query Params",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{rooms}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{rooms}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Room By Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{rooms}}/{{room-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{rooms}}",
+								"{{room-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Room",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const { id, number, roomCount, availability } = pm.response.json()",
+									"pm.collectionVariables.set('room-id', id);",
+									"pm.collectionVariables.set('room-room-count', roomCount);",
+									"pm.collectionVariables.set('room-number', number);",
+									"pm.collectionVariables.set('room-availability', availability);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"buildingTypeId\": 1,\n    \"roomCount\": 3,\n    \"number\": 1,\n    \"availability\": \"YES\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{rooms}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{rooms}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Room",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const { id, number, roomCount, availability } = pm.response.json()",
+									"pm.collectionVariables.set('room-id', id);",
+									"pm.collectionVariables.set('room-room-count', roomCount);",
+									"pm.collectionVariables.set('room-number', number);",
+									"pm.collectionVariables.set('room-availability', availability);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"availability\": \"NO\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{rooms}}/{{room-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{rooms}}",
+								"{{room-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Room",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{rooms}}/{{room-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{rooms}}",
+								"{{room-id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Room Occupied Periods",
+			"item": [
+				{
+					"name": "Get All Room Occupied Periods",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{room-occupied-periods}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{room-occupied-periods}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All By Query Params Room Occupied Periods",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{room-occupied-periods}}?checkoutdate=2024-03-15T00:00:00.000Z",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{room-occupied-periods}}"
+							],
+							"query": [
+								{
+									"key": "checkoutdate",
+									"value": "2024-03-15T00:00:00.000Z"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id Room Occupied Periods Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{room-occupied-periods}}/{{room-occupied-period-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{room-occupied-periods}}",
+								"{{room-occupied-period-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Room Occupied Period",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const checkInDate = new Date(Date.UTC(2024, 1, 5, 0, 0, 0, 0));",
+									"const checkOutDate = new Date(Date.UTC(2024, 1, 10, 0, 0, 0, 0));",
+									"pm.collectionVariables.set('check-in-date', checkInDate.toISOString());",
+									"pm.collectionVariables.set('check-out-date', checkOutDate.toISOString())"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const { id } = pm.response.json()",
+									"pm.collectionVariables.set('room-occupied-period-id', id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roomId\": \"{{room-id}}\",\n    \"checkInDate\": \"{{check-in-date}}\",\n    \"checkOutDate\": \"{{check-out-date}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{room-occupied-periods}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{room-occupied-periods}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Room Occupied Period Copy",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const { id, checkInDate, checkOutDate, room } = pm.response.json()",
+									"pm.collectionVariables.set('room-id', room.id);",
+									"pm.collectionVariables.set('check-in-date', checkInDate);",
+									"pm.collectionVariables.set('check-out-date', checkOutDate);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roomId\": \"{{room-id}}\",\n    \"checkInDate\": \"2024-01-20T00:00:00.000Z\",\n    \"checkOutDate\": \"{{check-out-date}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{room-occupied-periods}}/{{room-occupied-period-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{room-occupied-periods}}",
+								"{{room-occupied-period-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Room Occupied Period Copy 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// const checkInDate = new Date(Date.UTC(2024, 1, 5, 0, 0, 0, 0));",
+									"// const checkOutDate = new Date(Date.UTC(2024, 1, 10, 0, 0, 0, 0));",
+									"// pm.collectionVariables.set('check-in-date', checkInDate.toISOString());",
+									"// pm.collectionVariables.set('check-out-date', checkOutDate.toISOString())"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('room-occupied-period-id', '');",
+									"pm.collectionVariables.set('check-in-date', '');",
+									"pm.collectionVariables.set('check-out-date', '');",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{room-occupied-periods}}/{{room-occupied-period-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{room-occupied-periods}}",
+								"{{room-occupied-period-id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking Requests",
+			"item": [
+				{
+					"name": "Get All Booking Requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{booking-requests}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{booking-requests}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All by Query Booking Requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{booking-requests}}?childrencount=3",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{booking-requests}}"
+							],
+							"query": [
+								{
+									"key": "childrencount",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Booking Requests Copy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{booking-requests}}/{{booking-request-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{booking-requests}}",
+								"{{booking-request-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Booking Requests Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const { id, phone, email, checkInDate, checkOutDate, adultsCount, childrenCount } = pm.response.json()",
+									"pm.collectionVariables.set('booking-request-id', id);",
+									"pm.collectionVariables.set('br-phone', phone);",
+									"pm.collectionVariables.set('br-email', email);",
+									"pm.collectionVariables.set('br-br-check-in-date', checkInDate);",
+									"pm.collectionVariables.set('br-check-out-date', checkOutDate);",
+									"pm.collectionVariables.set('adults-count', adultsCount);",
+									"pm.collectionVariables.set('children-count', childrenCount);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"buildingTypeId\": {{building-id}},\n    \"phone\": \"{{br-phone}}\",\n    \"email\": \"{{br-email}}\",\n    \"checkInDate\": \"{{br-check-in-date}}\",\n    \"checkOutDate\": \"{{br-check-out-date}}\",\n    \"adultsCount\": {{adults-count}},\n    \"childrenCount\": {{children-count}},\n    \"childrenAges\": [14, 15, 16],\n    \"message\": \"{{br-message}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{booking-requests}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{booking-requests}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Booking Requests Copy 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const { id, phone, email, checkInDate, checkOutDate, adultsCount, childrenCount } = pm.response.json()",
+									"pm.collectionVariables.set('booking-request-id', id);",
+									"pm.collectionVariables.set('br-phone', phone);",
+									"pm.collectionVariables.set('br-email', email);",
+									"pm.collectionVariables.set('br-br-check-in-date', checkInDate);",
+									"pm.collectionVariables.set('br-check-out-date', checkOutDate);",
+									"pm.collectionVariables.set('adults-count', adultsCount);",
+									"pm.collectionVariables.set('children-count', childrenCount);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"buildingTypeId\": {{building-id}},\n    \"phone\": \"{{br-phone}}\",\n    \"email\": \"{{br-email}}\",\n    \"checkInDate\": \"{{br-check-in-date}}\",\n    \"checkOutDate\": \"{{br-check-out-date}}\",\n    \"adultsCount\": {{adults-count}},\n    \"childrenCount\": {{children-count}},\n    \"childrenAges\": [2, 4, 7],\n    \"message\": \"{{br-message}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rest-house-bd}}/{{booking-requests}}/{{booking-request-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{booking-requests}}",
+								"{{booking-request-id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Booking Requests Copy 2",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{rest-house-bd}}/{{booking-requests}}/{{booking-request-id}}",
+							"host": [
+								"{{rest-house-bd}}"
+							],
+							"path": [
+								"{{booking-requests}}",
+								"{{booking-request-id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{rest-house-bd}}/",
+					"host": [
+						"{{rest-house-bd}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "rest-house-bd",
+			"value": "localhost:4000/"
+		},
+		{
+			"key": "users",
+			"value": "users/",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "preNewPassword",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "login",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "roles",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "find",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "role-id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user-roles",
+			"value": "user-roles"
+		},
+		{
+			"key": "building-types",
+			"value": "building-types"
+		},
+		{
+			"key": "building-id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "building-type",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "rooms",
+			"value": "rooms"
+		},
+		{
+			"key": "room-id",
+			"value": ""
+		},
+		{
+			"key": "room-availability",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "room-number",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "room-count",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "room-room-count",
+			"value": ""
+		},
+		{
+			"key": "room-occupied-periods",
+			"value": ""
+		},
+		{
+			"key": "check-in-date",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "check-out-date",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "room-occupied-period-id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "booking-requests",
+			"value": "booking-requests"
+		},
+		{
+			"key": "br-name",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "br-email",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "br-phone",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "br-check-in-date",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "br-check-out-date",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "adults-count",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "children-count",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "br-message",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "booking-request-id",
+			"value": ""
+		},
+		{
+			"key": "br-br-check-in-date",
+			"value": ""
+		}
+	]
+}

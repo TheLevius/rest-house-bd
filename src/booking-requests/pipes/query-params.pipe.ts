@@ -1,4 +1,4 @@
-import { PipeTransform, Injectable } from '@nestjs/common';
+import { PipeTransform, Injectable, BadRequestException } from '@nestjs/common';
 import {
   QueryBookingRequestDto,
   QueryRawBookingRequestDto,
@@ -8,32 +8,38 @@ import {
 export class QueryParamsTransformPipe
   implements PipeTransform<QueryRawBookingRequestDto, QueryBookingRequestDto>
 {
-  private readonly queryKeys: Array<keyof QueryBookingRequestDto> = [
-    'buildingTypeId',
-    'userId',
-    'email',
-    'phone',
-    'checkInDate',
-    'checkOutDate',
-    'adultsCount',
-    'childrenCount',
-    'message',
-  ];
-  transform(
-    value: QueryRawBookingRequestDto,
-  ): QueryBookingRequestDto | Record<string, never> {
+  private readonly querySerializer: Record<
+    keyof QueryRawBookingRequestDto,
+    keyof QueryBookingRequestDto
+  > = {
+    buildingtypeid: 'buildingTypeId',
+    userid: 'userId',
+    email: 'email',
+    phone: 'phone',
+    checkindate: 'checkInDate',
+    checkoutdate: 'checkOutDate',
+    adultscount: 'adultsCount',
+    childrencount: 'childrenCount',
+    message: 'message',
+  };
+  transform(value: QueryRawBookingRequestDto): QueryBookingRequestDto {
     return this.queryParser(value);
   }
+
   private queryParser(
     queryRawDto: QueryRawBookingRequestDto,
   ): QueryBookingRequestDto {
-    const queryBookingRequestDto = {};
-    this.queryKeys.forEach((queryKey) => {
-      const queryRawKey = queryKey.toLowerCase();
-      if (queryRawDto?.[queryRawKey]) {
-        queryBookingRequestDto[queryKey] = queryRawDto[queryRawKey];
+    const rawKeys = Object.keys(queryRawDto);
+
+    return rawKeys.reduce((qBRDto, rawKey) => {
+      const filterKey = this.querySerializer?.[rawKey];
+      if (filterKey) {
+        qBRDto[filterKey] = queryRawDto[rawKey];
+      } else {
+        throw new BadRequestException(`Invalid parameter: ${rawKey}`);
       }
-    });
-    return queryBookingRequestDto;
+
+      return qBRDto;
+    }, {});
   }
 }

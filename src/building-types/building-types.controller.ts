@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   ParseIntPipe,
   Post,
@@ -46,7 +47,7 @@ export class BuildingTypesController {
   ) {
     return this.buildingTypeService.update(id, dto);
   }
-
+  @HttpCode(204)
   @Delete(':id')
   public delete(@Param('id', ParseIntPipe) id: number) {
     return this.buildingTypeService.delete(id);

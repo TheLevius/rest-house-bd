@@ -3,17 +3,19 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   ParseIntPipe,
   Post,
   Put,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
 import { BookingRequestsService } from './booking-requests.service';
 import { UpdateBookingRequestDto } from './dto/update-booking-request.dto';
 import { CreateBookingRequestDto } from './dto/create-booking-request.dto';
-import { QueryParamsTransformPipe } from 'src/room-occupied-periods/validations/query-params.pipe';
 import { QueryBookingRequestDto } from './dto/query-params.dto';
+import { QueryParamsTransformPipe } from './pipes/query-params.pipe';
 
 @Controller('booking-requests')
 export class BookingRequestsController {
@@ -22,7 +24,16 @@ export class BookingRequestsController {
   ) {}
   @Get()
   public getAll(
-    @Query(QueryParamsTransformPipe) queryParams: QueryBookingRequestDto,
+    @Query(
+      QueryParamsTransformPipe,
+      new ValidationPipe({
+        transform: true,
+        transformOptions: { enableImplicitConversion: true },
+        forbidNonWhitelisted: true,
+        skipMissingProperties: true,
+      }),
+    )
+    queryParams: QueryBookingRequestDto,
   ) {
     return this.bookingRequestsService.findAll(queryParams);
   }
@@ -41,6 +52,7 @@ export class BookingRequestsController {
   ) {
     return this.bookingRequestsService.update(id, dto);
   }
+  @HttpCode(204)
   @Delete(':id')
   public delete(@Param('id', ParseIntPipe) id: number) {
     return this.bookingRequestsService.delete(id);

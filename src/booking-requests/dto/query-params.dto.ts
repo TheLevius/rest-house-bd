@@ -2,27 +2,37 @@ import {
   IsEmail,
   IsISO8601,
   IsInt,
+  IsOptional,
   IsPhoneNumber,
   IsString,
   IsUUID,
 } from 'class-validator';
 export class QueryBookingRequestDto {
+  @IsOptional()
   @IsInt()
   buildingTypeId?: number;
+  @IsOptional()
   @IsUUID()
   userId?: string;
+  @IsOptional()
   @IsPhoneNumber()
   phone?: string;
+  @IsOptional()
   @IsEmail()
   email?: string;
+  @IsOptional()
   @IsISO8601()
-  checkInDate?: Date;
+  checkInDate?: string;
+  @IsOptional()
   @IsISO8601()
-  checkOutDate?: Date;
+  checkOutDate?: string;
+  @IsOptional()
   @IsInt()
   adultsCount?: number;
+  @IsOptional()
   @IsInt()
   childrenCount?: number;
+  @IsOptional()
   @IsString()
   message?: string;
 }
@@ -41,10 +51,10 @@ export class QueryRawBookingRequestDto {
   email?: string;
 
   @IsISO8601()
-  checkindate?: Date;
+  checkindate?: string;
 
   @IsISO8601()
-  checkoutdate?: Date;
+  checkoutdate?: string;
 
   @IsInt()
   adultscount?: number;

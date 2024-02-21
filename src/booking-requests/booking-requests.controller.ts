@@ -29,7 +29,6 @@ export class BookingRequestsController {
       new ValidationPipe({
         transform: true,
         transformOptions: { enableImplicitConversion: true },
-        forbidNonWhitelisted: true,
         skipMissingProperties: true,
       }),
     )

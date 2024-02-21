@@ -72,13 +72,8 @@ export class BuildingTypesService {
         where: {
           id,
         },
-        data: {
-          ...dto,
-        },
-        select: {
-          id: true,
-          type: true,
-        },
+        data: dto,
+        select,
       });
       return result;
     } catch (err) {

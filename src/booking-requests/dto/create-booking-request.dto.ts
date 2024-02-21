@@ -21,9 +21,9 @@ export class CreateBookingRequestDto {
   @IsEmail()
   email: string;
   @IsISO8601()
-  checkInDate: Date;
+  checkInDate: string;
   @IsISO8601()
-  checkOutDate: Date;
+  checkOutDate: string;
   @IsInt()
   @IsPositive()
   adultsCount: number;

@@ -30,8 +30,7 @@ export class QueryParamsTransformPipe
     queryRawDto: QueryRawBookingRequestDto,
   ): QueryBookingRequestDto {
     const rawKeys = Object.keys(queryRawDto);
-
-    return rawKeys.reduce((qBRDto, rawKey) => {
+    const result = rawKeys.reduce((qBRDto, rawKey) => {
       const filterKey = this.querySerializer?.[rawKey];
       if (filterKey) {
         qBRDto[filterKey] = queryRawDto[rawKey];
@@ -41,5 +40,6 @@ export class QueryParamsTransformPipe
 
       return qBRDto;
     }, {});
+    return result;
   }
 }

@@ -11,6 +11,7 @@ import { BuildingTypesModule } from './building-types/building-types.module';
 import { RoomsModule } from './rooms/rooms.module';
 import { RoomOccupiedPeriodsModule } from './room-occupied-periods/room-occupied-periods.module';
 import { BookingRequestsModule } from './booking-requests/booking-requests.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { BookingRequestsModule } from './booking-requests/booking-requests.modul
     RoomsModule,
     RoomOccupiedPeriodsModule,
     BookingRequestsModule,
+    CommentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

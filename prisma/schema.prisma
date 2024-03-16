@@ -35,16 +35,16 @@ model BuildingType {
 }
 
 model Comment {
-  id         String   @id @default(uuid()) @db.Uuid()
-  title      String   @db.VarChar(255)
-  content    String?  @db.VarChar(4095)
-  rate       Int      @db.SmallInt
-  stayStart  DateTime @db.Timestamptz(6)
-  stayEnd    DateTime @db.Timestamptz(6)
-  guestName  String   @db.VarChar(255)
-  avatarLink String?  @db.VarChar(255)
-  createdAt  DateTime @default(now()) @db.Timestamptz(6)
-  updatedAt  DateTime @updatedAt() @db.Timestamptz(6)
+  id        String   @id @default(uuid()) @db.Uuid()
+  title     String   @db.VarChar(255)
+  content   String?  @db.VarChar(4095)
+  rate      Int      @db.SmallInt
+  stayStart DateTime @db.Timestamptz(6)
+  stayEnd   DateTime @db.Timestamptz(6)
+  guestName String   @db.VarChar(255)
+  // avatarLink String?  @db.VarChar(255)
+  createdAt DateTime @default(now()) @db.Timestamptz(6)
+  updatedAt DateTime @updatedAt() @db.Timestamptz(6)
 }
 
 model Role {

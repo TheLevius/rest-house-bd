@@ -27,8 +27,8 @@ dependencies:
     specifier: ^5.9.1
     version: 5.9.1(pg@8.11.3)
   '@prisma/client':
-    specifier: 5.9.1
-    version: 5.9.1(prisma@5.9.1)
+    specifier: ^5.11.0
+    version: 5.11.0(prisma@5.9.1)
   class-transformer:
     specifier: ^0.5.1
     version: 0.5.1
@@ -1140,8 +1140,8 @@ packages:
       - supports-color
     dev: false
 
-  /@prisma/client@5.9.1(prisma@5.9.1):
-    resolution: {integrity: sha512-caSOnG4kxcSkhqC/2ShV7rEoWwd3XrftokxJqOCMVvia4NYV/TPtJlS9C2os3Igxw/Qyxumj9GBQzcStzECvtQ==}
+  /@prisma/client@5.11.0(prisma@5.9.1):
+    resolution: {integrity: sha512-SWshvS5FDXvgJKM/a0y9nDC1rqd7KG0Q6ZVzd+U7ZXK5soe73DJxJJgbNBt2GNXOa+ysWB4suTpdK5zfFPhwiw==}
     engines: {node: '>=16.13'}
     requiresBuild: true
     peerDependencies:
